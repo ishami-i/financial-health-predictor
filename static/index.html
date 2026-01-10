@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSME Financial Health Predictor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen">
+    <div class="max-w-5xl mx-auto py-8 px-4">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                🏦 MSME Financial Health Assessment
+            </h1>
+            <p class="text-gray-600 text-lg">
+                Assess your business financial health for credit access opportunities
+            </p>
+            <p class="text-sm text-gray-500 mt-2">
+                For Micro, Small & Medium Enterprises across Southern Africa
+            </p>
+        </div>
+
+        <!-- Features -->
+        <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                <div class="text-4xl mb-2">🔒</div>
+                <h3 class="font-semibold text-gray-800">Secure Assessment</h3>
+                <p class="text-sm text-gray-600">Your data is private and secure</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                <div class="text-4xl mb-2">⚡</div>
+                <h3 class="font-semibold text-gray-800">Instant Results</h3>
+                <p class="text-sm text-gray-600">Get your assessment immediately</p>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+                <div class="text-4xl mb-2">💳</div>
+                <h3 class="font-semibold text-gray-800">Credit Ready</h3>
+                <p class="text-sm text-gray-600">Know your eligibility instantly</p>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-6">
+                <h2 class="text-2xl font-bold text-white">Business Information</h2>
+            </div>
+
+            <div class="p-6">
+                <div id="formContainer">
+                    <!-- Business Details -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">🏢 Business Details</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Country *</label>
+                                <select id="country" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select country</option>
+                                    <option value="Zimbabwe">Zimbabwe</option>
+                                    <option value="Malawi">Malawi</option>
+                                    <option value="Eswatini">Eswatini</option>
+                                    <option value="Lesotho">Lesotho</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Business Age (months) *</label>
+                                <input type="number" id="business_age_months" required min="0" placeholder="e.g., 24" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Owner Information -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">👤 Owner Information</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Owner Age *</label>
+                                <input type="number" id="owner_age" required min="18" max="100" placeholder="e.g., 35" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Compliant with Income Tax?</label>
+                                <select id="compliance_income_tax" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="Don't know or N/A">Don't know or N/A</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Financial Information -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">💰 Financial Information</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Personal Income *</label>
+                                <input type="number" id="personal_income" required min="0" step="0.01" placeholder="e.g., 5000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Business Expenses *</label>
+                                <input type="number" id="business_expenses" required min="0" step="0.01" placeholder="e.g., 3000" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Banking Services -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">🏦 Banking & Financial Services</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <!-- <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Bank Account</label>
+                                <select id="has_bank_account" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="Don't know or N/A">Don't know or N/A</option>
+                                </select>
+                            </div> -->
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Loan Account</label>
+                                <select id="has_loan_account" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="Don't know or N/A">Don't know or N/A</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Internet Banking</label>
+                                <select id="has_internet_banking" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="Don't know or N/A">Don't know or N/A</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Debit Card</label>
+                                <select id="has_debit_card" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select option</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="Don't know or N/A">Don't know or N/A</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insurance -->
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4">🛡️ Insurance Coverage</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Medical Insurance</label>
+                                <select id="medical_insurance" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select option</option>
+                                    <option value="Have now">Have now</option>
+                                    <option value="Used to have but don't have now">Used to have but don't have now</option>
+                                    <option value="Never had">Never had</option>
+                                    <option value="Don't know or N/A">Don't know or N/A</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Funeral Insurance</label>
+                                <select id="funeral_insurance" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select option</option>
+                                    <option value="Have now">Have now</option>
+                                    <option value="Used to have but don't have now">Used to have but don't have now</option>
+                                    <option value="Never had">Never had</option>
+                                    <option value="Don't know or N/A">Don't know or N/A</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="flex gap-4 mt-8">
+                        <button onclick="assessHealth()" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-200">
+                            Assess Financial Health
+                        </button>
+                        <button onclick="resetForm()" class="px-6 py-3 border border-gray-300 rounded-lg font-semibold text-gray-700 hover:bg-gray-50 transition-colors">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Loading -->
+                <div id="loadingContainer" class="hidden text-center py-12">
+                    <div class="loader mx-auto mb-4"></div>
+                    <p class="text-gray-600">Analyzing your business financial health...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="resultsContainer" class="hidden mt-8"></div>
+
+        <!-- Footer -->
+        <div class="mt-8 text-center text-gray-600 text-sm">
+            <p>Powered by Data.org Financial Health Prediction Model</p>
+            <p class="mt-2">© 2026 MSME Financial Inclusion Initiative</p>
+        </div>
+    </div>
+
+    <script>
+        function getFormData() {
+            const getValueSafe = (id) => {
+                const element = document.getElementById(id);
+                return element ? element.value : '';
+            };
+
+            return {
+                country: getValueSafe('country'),
+                owner_age: getValueSafe('owner_age'),
+                personal_income: getValueSafe('personal_income'),
+                business_expenses: getValueSafe('business_expenses'),
+                business_age_months: getValueSafe('business_age_months'),
+                // has_bank_account: getValueSafe('has_bank_account'),
+                has_loan_account: getValueSafe('has_loan_account'),
+                has_internet_banking: getValueSafe('has_internet_banking'),
+                has_debit_card: getValueSafe('has_debit_card'),
+                medical_insurance: getValueSafe('medical_insurance'),
+                funeral_insurance: getValueSafe('funeral_insurance'),
+                compliance_income_tax: getValueSafe('compliance_income_tax')
+            };
+        }
+
+        function validateForm(data) {
+            if (!data.country || !data.owner_age || !data.personal_income || !data.business_expenses) {
+                alert('Please fill in all required fields marked with *');
+                return false;
+            }
+            return true;
+        }
+
+        async function assessHealth() {
+            const data = getFormData();
+            
+            if (!validateForm(data)) return;
+
+            // Show loading
+            document.getElementById('formContainer').classList.add('hidden');
+            document.getElementById('loadingContainer').classList.remove('hidden');
+            document.getElementById('resultsContainer').classList.add('hidden');
+
+            try {
+                const response = await fetch('/api/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                displayResults(result);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error: Could not connect to the API. Make sure the Flask server is running on port 5000.');
+                document.getElementById('formContainer').classList.remove('hidden');
+                document.getElementById('loadingContainer').classList.add('hidden');
+            }
+        }
+
+        function displayResults(result) {
+            const healthColors = {
+                'Excellent': 'text-green-600 bg-green-50 border-green-200',
+                'Good': 'text-blue-600 bg-blue-50 border-blue-200',
+                'Fair': 'text-yellow-600 bg-yellow-50 border-yellow-200',
+                'Needs Improvement': 'text-orange-600 bg-orange-50 border-orange-200'
+            };
+
+            const healthIcons = {
+                'Excellent': '✅',
+                'Good': '📈',
+                'Fair': '⚠️',
+                'Needs Improvement': '🔔'
+            };
+
+            const recommendations = {
+                'Excellent': 'Your business shows strong financial health! You qualify for premium credit facilities with favorable terms.',
+                'Good': 'Your business demonstrates solid financial management. You qualify for standard credit facilities.',
+                'Fair': 'Your business shows potential but needs improvement. Consider working on financial access and profitability to qualify for better credit terms.',
+                'Needs Improvement': 'Your business needs significant financial improvement. We recommend financial counseling and capacity building before accessing credit.'
+            };
+
+            const score = Math.round(result.confidence * 100);
+            const health = result.health_level;
+            const colorClass = healthColors[health] || 'text-gray-600 bg-gray-50 border-gray-200';
+
+            document.getElementById('resultsContainer').innerHTML = `
+                <div class="rounded-xl shadow-lg border-2 overflow-hidden ${colorClass}">
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h2 class="text-3xl font-bold mb-2">Assessment Results</h2>
+                                <p class="text-lg">Financial Health Score: ${score}/100</p>
+                            </div>
+                            <div class="text-6xl">${healthIcons[health]}</div>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6 mb-6">
+                            <h3 class="text-2xl font-bold mb-4">Health Level: ${health}</h3>
+                            
+                            <div class="w-full bg-gray-200 rounded-full h-4 mb-6">
+                                <div class="bg-gradient-to-r from-blue-600 to-purple-600 h-4 rounded-full transition-all duration-500" style="width: ${score}%"></div>
+                            </div>
+
+                            <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                                ${recommendations[health]}
+                            </p>
+
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <p class="text-sm text-gray-600 mb-1">Prediction</p>
+                                    <p class="text-2xl font-bold text-blue-600">${result.prediction}</p>
+                                </div>
+                                <div class="bg-purple-50 p-4 rounded-lg">
+                                    <p class="text-sm text-gray-600 mb-1">Confidence</p>
+                                    <p class="text-2xl font-bold text-purple-600">${(result.confidence * 100).toFixed(1)}%</p>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-lg">
+                                    <p class="text-sm text-gray-600 mb-1">Status</p>
+                                    <p class="text-2xl font-bold text-green-600">${health}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg p-6">
+                            <h4 class="font-semibold text-lg mb-3">Next Steps:</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start">
+                                    <span class="mr-2">✓</span>
+                                    <span>Contact our credit team to discuss financing options</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">✓</span>
+                                    <span>Prepare business documentation and financial statements</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="mr-2">✓</span>
+                                    <span>Consider our financial literacy programs to strengthen your business</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <button onclick="resetAssessment()" class="mt-6 w-full bg-white text-gray-700 py-3 px-6 rounded-lg font-semibold border-2 hover:bg-gray-50 transition-colors">
+                            New Assessment
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('formContainer').classList.add('hidden');
+            document.getElementById('loadingContainer').classList.add('hidden');
+            document.getElementById('resultsContainer').classList.remove('hidden');
+        }
+
+        function resetForm() {
+            document.getElementById('country').value = '';
+            document.getElementById('owner_age').value = '';
+            document.getElementById('personal_income').value = '';
+            document.getElementById('business_expenses').value = '';
+            document.getElementById('business_age_months').value = '';
+            document.getElementById('has_loan_account').value = '';
+            document.getElementById('has_internet_banking').value = '';
+            document.getElementById('has_debit_card').value = '';
+            document.getElementById('medical_insurance').value = '';
+            document.getElementById('funeral_insurance').value = '';
+            document.getElementById('compliance_income_tax').value = '';
+        }
+
+        function resetAssessment() {
+            resetForm();
+            document.getElementById('formContainer').classList.remove('hidden');
+            document.getElementById('resultsContainer').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
