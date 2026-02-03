@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Add to your shell profile so DYLD_LIBRARY_PATH persists
 echo 'export DYLD_LIBRARY_PATH=/usr/local/opt/libomp/lib:$DYLD_LIBRARY_PATH' >> ~/.zshrc
 

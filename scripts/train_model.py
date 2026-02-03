@@ -106,29 +106,24 @@ class FinancialHealthPredictor:
         y = self.train_fe['Target']
         X_test = self.test_fe.drop(columns=['ID'])
         
+        # Convert object columns to category BEFORE train-validation split
+        # This ensures both train and validation sets have identical categorical features
+        for col in X.columns:
+            if X[col].dtype == 'object':
+                X[col] = X[col].astype('category')
+        
+        # Apply the same categories to X_test based on X
+        for col in X_test.columns:
+            if col in X.columns and X[col].dtype.name == 'category':
+                X_test[col] = X_test[col].astype('category')
+        
         self.feature_columns = X.columns.tolist()
         
-        # Train-validation split FIRST
+        # Train-validation split (after categorical conversion)
         X_train, X_val, y_train, y_val = train_test_split(
             X, y, test_size=0.2, random_state=42, 
             stratify=self.train_fe[['country', 'Target']]
         )
-        
-        # Now convert to category AFTER split, with identical categories
-        categorical_cols = [col for col in X_train.columns if X_train[col].dtype == 'object']
-        
-        for col in categorical_cols:
-            # Get all unique categories from both train and val combined
-            all_categories = list(set(X_train[col].unique()) | set(X_val[col].unique()))
-            all_categories = sorted([c for c in all_categories if pd.notna(c)])
-            
-            # Apply the SAME categories to both train and val
-            X_train[col] = pd.Categorical(X_train[col], categories=all_categories)
-            X_val[col] = pd.Categorical(X_val[col], categories=all_categories)
-            
-            # Also apply to test set
-            if col in X_test.columns:
-                X_test[col] = pd.Categorical(X_test[col], categories=all_categories)
         
         return X_train, X_val, y_train, y_val, X_test, y
     
